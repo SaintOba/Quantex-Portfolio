@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantex Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Quantex</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="#About">ABOUT</a></li>
+                <li><a href="#Projects">PROJECTS</a></li>
+                <li><a href="#Skills">SKILLS</a></li>
+                <li><a href="#Contacts">CONTACTS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-top">
+            <div class="title-hero"><h1>QUANTEX NETWORK</h1></div>
+            <P>WEB DEVELOPER & GRAPHIC DESIGNER</P>
+        </div>
+        <div class="hero-svg">
+            <svg   
+            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+            </svg>
+        </div>
+    </section>
+
+    <section class="about" id="About">
+        <div class="neon">ABOUT ME</div>
+        <div class="thing">
+            <img src="3d-render-techno-background-with-male-figure-coding-design.jpg" alt="">
+            <div class="about-right">
+                <H1>THE CREATIVE BEHIND THE CODE</H1>
+                <P>Hi, i'm Saint Oba, a web designer, graphic designer, and developer <br> passionate about
+                   creating modern, user-friendly digital experiences. <br> With skills in both design and <br> coding, i help begginers and businesses turn their ideas into real project.
+                </P>
+                <div class="boxes">
+                    <div class="box">5+ <br>PROJECTS</div>
+                    <div class="box">6+ <br>MONTHS EXP</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="Projects">
+        <div class="title-project"><h1>PROJECTS</h1></div>
+        <div class="project-page">
+            <div class="project-image">
+                <img src="portf2.jpeg" alt="">
+                <button><a href="https://pheran-library.netlify.app/">view</a></button>
+            </div>
+            <div class="project-image">
+               <img src="potf.jpeg" alt="">
+               <button><a href="file:///C:/Users/Any/Desktop/ALL%20MY%20WORKS/shopping-cart/category.html">view</a></button>
+            </div>
+            <div class="project-image">
+                <img src="portf3.jpeg" alt="Project Image">
+                <button><a href="https://saint-shopeasy-project.netlify.app/">view</a></button>
+            </div>
+            <div class="project-image">
+                <img src="portf4.jpeg" alt="Project Image">
+                <button><a href="https://tempestry-course.netlify.app/">view</a></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="Skills">
+        <div class="title-skills"><h1>SKILLS</h1></div>
+        <div class="skills-flex">
+            <div class="skill">HTML5</div>
+            <div class="skill">CSS3</div>
+            <div class="skill">JAVASCRIPT</div>
+        </div>
+    </section>
+
+    <section class="contact-container" id="Contacts">
+        <div class="title-container">CONTACT</div>
+        <form action="https://yourdomain.com/contact" method="POST">
+            
+            <div class="form-group">
+                <label for="contact_name">Your Name</label>
+                <input type="text" id="contact_name" name="contact_name" placeholder="Enter your name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contact_email">Email Address</label>
+                <input type="email" id="contact_email" name="contact_email" placeholder="Enter your email" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" rows="5" placeholder=" Write Your Message"></textarea>
+            </div>
+            
+            <button type="submit" class="button">Send Message</button>
+        </form>
+    </section>
+
+    <footer class="footer" id="footer">
+        <p>&copy; 2024 Quantex Network. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="linkedin-icon.png" alt="LinkedIn"></a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active section in navbar
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 60) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const name = document.getElementById('contact_name').value;
+            const email = document.getElementById('contact_email').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !email || !message) {
+                e.preventDefault();
+                alert('Please fill in all fields before submitting the form.');
+            }
+        });
+
+        // Footer year update
+        document.querySelector('.footer p').innerHTML = `&copy; ${new Date().getFullYear()} Quantex Network. All rights reserved.`;
+
+        
+        // Add any additional JavaScript functionality here
+    </script>
+</body>
+</html>
