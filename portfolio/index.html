@@ -5,13 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantex Portfolio</title>
+    <meta name="description" content="Portfolio of Saint Oba — web developer, web designer and graphic designer. Projects, skills and contact.">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <!-- Preconnect to improve font load performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="navbar">
         <div class="logo">Quantex</div>
-        <nav>
+        <button class="nav-toggle" aria-controls="primary-navigation" aria-expanded="false" aria-label="Toggle navigation">
+            ☰
+        </button>
+        <nav id="primary-navigation" aria-label="Primary" role="navigation">
             <ul>
                 <li><a href="index.html">HOME</a></li>
                 <li><a href="#About">ABOUT</a></li>
@@ -22,6 +30,7 @@
         </nav>
     </header>
 
+    <main id="main">
     <section class="hero">
         <div class="hero-top">
             <div class="title-hero"><h1>QUANTEX NETWORK</h1></div>
@@ -37,16 +46,38 @@
 
     <section class="about" id="About">
         <div class="neon">ABOUT ME</div>
-        <div class="thing">
-            <img src="3d-render-techno-background-with-male-figure-coding-design.jpg" alt="">
-            <div class="about-right">
-                <H1>THE CREATIVE BEHIND THE CODE</H1>
-                <P>Hi, i'm Saint Oba, a web designer, graphic designer, and developer <br> passionate about
-                   creating modern, user-friendly digital experiences. <br> With skills in both design and <br> coding, i help begginers and businesses turn their ideas into real project.
-                </P>
-                <div class="boxes">
-                    <div class="box">5+ <br>PROJECTS</div>
-                    <div class="box">6+ <br>MONTHS EXP</div>
+        <div class="about-grid">
+            <div class="about-media">
+                <img loading="lazy" src="3d-render-techno-background-with-male-figure-coding-design.jpg" alt="Saint Oba at work - stylized render">
+            </div>
+            <div class="about-content">
+                <h2>Hi, I'm Saint Oba</h2>
+                <p class="lead">I build modern, accessible websites and visual identities. I combine design thinking with clean code to help small businesses and creators launch memorable digital experiences.</p>
+
+                <p>I focus on practical, user-centered solutions: responsive interfaces, clear information hierarchy and polished visuals. My workflow covers design, development and iterative improvements based on feedback.</p>
+
+                <ul class="about-services" aria-label="Services provided">
+                    <li>Responsive web design & front-end development</li>
+                    <li>Branding & graphic design</li>
+                    <li>Accessibility reviews and performance tuning</li>
+                </ul>
+
+                <div class="about-ctas">
+                    <a class="btn btn-primary" href="#Contacts">Contact Me</a>
+                    <a class="btn" href="#" target="_blank" rel="noopener">Download CV</a>
+                </div>
+
+                <div class="skill-chips" aria-hidden="false">
+                    <span class="chip">HTML5</span>
+                    <span class="chip">CSS3</span>
+                    <span class="chip">JavaScript</span>
+                    <span class="chip">UI Design</span>
+                    <span class="chip">Figma</span>
+                </div>
+
+                <div class="about-stats">
+                    <div class="stat"><strong>5+</strong><span>Projects</span></div>
+                    <div class="stat"><strong>6+</strong><span>Months experience</span></div>
                 </div>
             </div>
         </div>
@@ -54,38 +85,105 @@
 
     <section class="projects" id="Projects">
         <div class="title-project"><h1>PROJECTS</h1></div>
-        <div class="project-page">
-            <div class="project-image">
-                <img src="portf2.jpeg" alt="">
-                <button><a href="https://pheran-library.netlify.app/">view</a></button>
-            </div>
-            <div class="project-image">
-               <img src="potf.jpeg" alt="">
-               <button><a href="file:///C:/Users/Any/Desktop/ALL%20MY%20WORKS/shopping-cart/category.html">view</a></button>
-            </div>
-            <div class="project-image">
-                <img src="portf3.jpeg" alt="Project Image">
-                <button><a href="https://saint-shopeasy-project.netlify.app/">view</a></button>
-            </div>
-            <div class="project-image">
-                <img src="portf4.jpeg" alt="Project Image">
-                <button><a href="https://tempestry-course.netlify.app/">view</a></button>
+        <div class="projects-grid">
+            <article class="project-card" tabindex="0" data-title="Pheran Library" data-desc="A responsive book library UI" data-img="portf2.jpeg" data-live="https://pheran-library.netlify.app/" data-source="#">
+                <img src="portf2.jpeg" alt="Pheran Library screenshot">
+                <div class="project-overlay">
+                    <h3>Pheran Library</h3>
+                    <p>Responsive book library UI</p>
+                    <button class="project-open">View</button>
+                </div>
+            </article>
+
+            <article class="project-card" tabindex="0" data-title="Portfolio Snapshot" data-desc="Personal portfolio showcase" data-img="potf.jpeg" data-live="#" data-source="#">
+                <img src="potf.jpeg" alt="Portfolio snapshot">
+                <div class="project-overlay">
+                    <h3>Portfolio Snapshot</h3>
+                    <p>Personal portfolio showcase</p>
+                    <button class="project-open">View</button>
+                </div>
+            </article>
+
+            <article class="project-card" tabindex="0" data-title="ShopEasy" data-desc="E-commerce concept" data-img="portf3.jpeg" data-live="https://saint-shopeasy-project.netlify.app/" data-source="#">
+                <img src="portf3.jpeg" alt="ShopEasy screenshot">
+                <div class="project-overlay">
+                    <h3>ShopEasy</h3>
+                    <p>E-commerce concept</p>
+                    <button class="project-open">View</button>
+                </div>
+            </article>
+
+            <article class="project-card" tabindex="0" data-title="Tempestry Course" data-desc="Course landing page" data-img="portf4.jpeg" data-live="https://tempestry-course.netlify.app/" data-source="#">
+                <img src="portf4.jpeg" alt="Tempestry course screenshot">
+                <div class="project-overlay">
+                    <h3>Tempestry Course</h3>
+                    <p>Course landing page</p>
+                    <button class="project-open">View</button>
+                </div>
+            </article>
+        </div>
+
+        <!-- Modal for project preview -->
+        <div class="project-modal" role="dialog" aria-hidden="true" aria-label="Project preview">
+            <div class="project-modal-content">
+                <button class="modal-close" aria-label="Close preview">✕</button>
+                <div class="modal-left">
+                    <img src="" alt="Project large preview" class="modal-image">
+                </div>
+                <div class="modal-right">
+                    <h2 class="modal-title"></h2>
+                    <p class="modal-desc"></p>
+                    <div class="modal-links">
+                        <a href="#" class="modal-live" target="_blank" rel="noopener">Live</a>
+                        <a href="#" class="modal-source" target="_blank" rel="noopener">Source</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="skills" id="Skills">
         <div class="title-skills"><h1>SKILLS</h1></div>
-        <div class="skills-flex">
-            <div class="skill">HTML5</div>
-            <div class="skill">CSS3</div>
-            <div class="skill">JAVASCRIPT</div>
+        <div class="skills-grid">
+            <article class="skill-card" data-skill="HTML5" data-level="90">
+                <div class="skill-card-header">
+                    <h3>HTML5</h3>
+                    <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-bar" aria-hidden="true">
+                    <div class="skill-fill" style="width:0%"></div>
+                </div>
+                <p class="skill-desc">Semantic markup, accessibility, forms and responsive layouts.</p>
+            </article>
+
+            <article class="skill-card" data-skill="CSS3" data-level="85">
+                <div class="skill-card-header">
+                    <h3>CSS3</h3>
+                    <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-bar" aria-hidden="true">
+                    <div class="skill-fill" style="width:0%"></div>
+                </div>
+                <p class="skill-desc">Responsive design, grid, flexbox, animations and visual polish.</p>
+            </article>
+
+            <article class="skill-card" data-skill="JavaScript" data-level="50">
+                <div class="skill-card-header">
+                    <h3>JavaScript</h3>
+                    <span class="skill-percent">50%</span>
+                </div>
+                <div class="skill-bar" aria-hidden="true">
+                    <div class="skill-fill" style="width:0%"></div>
+                </div>
+                <p class="skill-desc">DOM, events, ES6+, small UI interactions and basic tooling.</p>
+            </article>
         </div>
     </section>
 
     <section class="contact-container" id="Contacts">
         <div class="title-container">CONTACT</div>
-        <form action="https://yourdomain.com/contact" method="POST">
+        <!-- If you don't have a backend yet, using mailto as a fallback will open the user's email client. Replace action with your server endpoint when ready. -->
+        <form action="mailto:hello@example.com" method="POST" enctype="text/plain">
             
             <div class="form-group">
                 <label for="contact_name">Your Name</label>
@@ -106,16 +204,26 @@
         </form>
     </section>
 
+    </main>
     <footer class="footer" id="footer">
         <p>&copy; 2024 Quantex Network. All rights reserved.</p>
         <div class="social-icons">
-            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
-            <a href="#"><img src="linkedin-icon.png" alt="LinkedIn"></a>
+            <a href="#" aria-label="Facebook"><img src="facebook-icon.png" alt="Facebook"><span class="social-fallback">Facebook</span></a>
+            <a href="#" aria-label="Twitter"><img src="twitter-icon.png" alt="Twitter"><span class="social-fallback">Twitter</span></a>
+            <a href="#" aria-label="LinkedIn"><img src="linkedin-icon.png" alt="LinkedIn"><span class="social-fallback">LinkedIn</span></a>
         </div>
     </footer>
 
     <script>
+        // Mobile nav toggle
+        const navToggle = document.querySelector('.nav-toggle');
+        const primaryNav = document.getElementById('primary-navigation');
+        navToggle.addEventListener('click', () => {
+            const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+            navToggle.setAttribute('aria-expanded', !expanded);
+            primaryNav.classList.toggle('open');
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -164,6 +272,80 @@
 
         
         // Add any additional JavaScript functionality here
+        // Skills: animate bars when section enters viewport
+        (function(){
+            const skillCards = document.querySelectorAll('.skill-card');
+            if (!('IntersectionObserver' in window)){
+                // If IO not supported, immediately reveal and fill
+                skillCards.forEach(card => {
+                    card.classList.add('visible');
+                    const fill = card.querySelector('.skill-fill');
+                    const pct = card.getAttribute('data-level') || card.querySelector('.skill-percent').textContent.replace('%','');
+                    fill.style.width = pct + '%';
+                });
+                return;
+            }
+
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting){
+                        const card = entry.target;
+                        card.classList.add('visible');
+                        const fill = card.querySelector('.skill-fill');
+                        const pct = card.getAttribute('data-level') || card.querySelector('.skill-percent').textContent.replace('%','');
+                        // small timeout for staggered effect
+                        setTimeout(()=> fill.style.width = pct + '%', 100);
+                        io.unobserve(card);
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            skillCards.forEach(card => io.observe(card));
+        })();
+
+        // Projects: modal preview logic
+        (function(){
+            const cards = document.querySelectorAll('.project-card');
+            const modal = document.querySelector('.project-modal');
+            const modalImg = modal.querySelector('.modal-image');
+            const modalTitle = modal.querySelector('.modal-title');
+            const modalDesc = modal.querySelector('.modal-desc');
+            const modalLive = modal.querySelector('.modal-live');
+            const modalSource = modal.querySelector('.modal-source');
+            const modalClose = modal.querySelector('.modal-close');
+
+            function openModal(card){
+                const img = card.getAttribute('data-img');
+                const title = card.getAttribute('data-title');
+                const desc = card.getAttribute('data-desc');
+                const live = card.getAttribute('data-live');
+                const source = card.getAttribute('data-source');
+                modalImg.src = img;
+                modalImg.alt = title + ' preview';
+                modalTitle.textContent = title;
+                modalDesc.textContent = desc;
+                modalLive.href = live || '#';
+                modalSource.href = source || '#';
+                modal.setAttribute('aria-hidden','false');
+                document.body.style.overflow = 'hidden';
+                modalClose.focus();
+            }
+
+            function closeModal(){
+                modal.setAttribute('aria-hidden','true');
+                document.body.style.overflow = '';
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => openModal(card));
+                card.querySelector('.project-open').addEventListener('click', (e)=>{ e.stopPropagation(); openModal(card); });
+                card.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card); } });
+            });
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+            document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+        })();
     </script>
 </body>
 </html>
