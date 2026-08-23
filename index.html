@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Obafemi Victor — Frontend Developer</title>
+<meta name="description" content="Obafemi Victor — frontend developer building Kyomatos, DevBridge, SYNTRA and more. Lagos, Nigeria.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header>
+  <div class="navbar">
+    <a href="#" class="brand"><span class="dot"></span> OBAFEMI VICTOR</a>
+    <button class="nav-toggle" id="navToggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+    <nav id="primary-nav" aria-label="Primary">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="live-badge"><span class="dot"></span> Building in public — Lagos, NG</div>
+      <h1>Quiet person. <span class="accent">Loud results.</span></h1>
+      <p class="sub">Frontend developer shipping real products — not clones. HTML, CSS, JavaScript and Supabase, built for founders and brands who need something that actually works.</p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary">View the work →</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>FRONTEND DEVELOPER <span class="sep">//</span></span>
+      <span>FOUNDER, KYOMATOS <span class="sep">//</span></span>
+      <span>MASS COMM, YABATECH <span class="sep">//</span></span>
+      <span>ON AIR — MAINLAND 98.3FM <span class="sep">//</span></span>
+      <span>LAGOS, NIGERIA <span class="sep">//</span></span>
+      <span>FRONTEND DEVELOPER <span class="sep">//</span></span>
+      <span>FOUNDER, KYOMATOS <span class="sep">//</span></span>
+      <span>MASS COMM, YABATECH <span class="sep">//</span></span>
+      <span>ON AIR — MAINLAND 98.3FM <span class="sep">//</span></span>
+      <span>LAGOS, NIGERIA <span class="sep">//</span></span>
+    </div>
+  </div>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="eyebrow">Selected work</div>
+      <h2 class="section-title">Four builds worth your time.</h2>
+      <div class="work-grid">
+
+        <article class="work-card">
+          <span class="freq">DEVELOPER MARKETPLACE</span>
+          <h3>DevBridge</h3>
+          <p>A developer-to-project marketplace with a full admin dashboard, Supabase-backed data layer, and a mobile-first rebuild after the first pass shipped.</p>
+          <div class="tag-row">
+            <span class="tag">JavaScript</span>
+            <span class="tag">Supabase</span>
+            <span class="tag">Netlify</span>
+          </div>
+          <a href="https://devbrigde.netlify.app" class="work-link" target="_blank">View project →</a>
+        </article>
+
+        <article class="work-card">
+          <span class="freq">CLIENT BRAND SITE</span>
+          <h3>SYNTRA</h3>
+          <p>Storefront for an African-heritage fashion brand — dark green and burnt-orange identity, WhatsApp checkout, built from scratch in vanilla JS.</p>
+          <div class="tag-row">
+            <span class="tag">HTML/CSS/JS</span>
+            <span class="tag">Supabase</span>
+            <span class="tag">WhatsApp API</span>
+          </div>
+          <a href="#" class="work-link">View project →</a>
+        </article>
+
+        <article class="work-card">
+          <span class="freq">EVENTS / TICKETING</span>
+          <h3>Kyomatos Events</h3>
+          <p>Booking platform for the Events & PR arm of Kyomatos — event listings, ticket purchase flow, user accounts, and a "My Tickets" dashboard.</p>
+          <div class="tag-row">
+            <span class="tag">JavaScript</span>
+            <span class="tag">Auth</span>
+            <span class="tag">Ticketing</span>
+          </div>
+          <a href="https://kyomatos-events.netlify.app/" class="work-link" target="_blank" rel="noopener">View project →</a>
+        </article>
+
+        <article class="work-card">
+          <span class="freq">D2C APPAREL</span>
+          <h3>Kyomatos Apparel</h3>
+          <p>The storefront for my own apparel arm — one-of-one drops, custom product pages, and the same WhatsApp-checkout flow used across the Kyomatos ecosystem.</p>
+          <div class="tag-row">
+            <span class="tag">Vanilla JS</span>
+            <span class="tag">Supabase</span>
+          </div>
+          <a href="https://kyomatos-apparel.netlify.app" class="work-link" target="_blank">View project →</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <div class="eyebrow">Toolkit</div>
+      <h2 class="section-title">What I build with.</h2>
+      <div class="stack-grid">
+        <div class="stack-item"><span class="freq">CORE</span><h4>HTML / CSS / JavaScript</h4><p>No framework crutch — clean, dependency-light builds that load fast.</p></div>
+        <div class="stack-item"><span class="freq">BACKEND</span><h4>Supabase</h4><p>Auth, database and storage for real client products, not toy demos.</p></div>
+        <div class="stack-item"><span class="freq">COMMERCE</span><h4>WhatsApp checkout flows</h4><p>Built for markets where a full cart-and-card checkout isn't the norm.</p></div>
+        <div class="stack-item"><span class="freq">DEPLOY</span><h4>Netlify / Git</h4><p>Fast iteration, client-facing staging links, clean handoffs.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="about-layout">
+        <div>
+          <div class="eyebrow">About</div>
+          <h2 class="section-title">Two mics, one build log.</h2>
+          <p>I'm a <strong>Mass Communication</strong> student at Yaba College of Technology, currently on SIWES attachment at <strong>Mainland 98.3FM</strong>, where I present on-air segments and occasionally read news. Off-air, I build — frontend interfaces, client sites, and my own venture, <strong>Kyomatos</strong>.</p>
+          <p>The radio background isn't a side note. It means I can write copy, hold a room, and explain a build in plain language — on top of shipping the code itself.</p>
+        </div>
+        <div>
+          <div class="stat-line"><span>Based in</span><span>Lagos, Nigeria</span></div>
+          <div class="stat-line"><span>Studying</span><span>Mass Communication, YABATECH</span></div>
+          <div class="stat-line"><span>Currently</span><span>SIWES @ Mainland 98.3FM</span></div>
+          <div class="stat-line"><span>Building</span><span>Kyomatos — Tech / Apparel / Events</span></div>
+          <div class="stat-line"><span>Available for</span><span>Remote frontend contracts</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="wrap">
+      <div class="contact-inner">
+        <h2>Have a build in mind? Let's talk.</h2>
+        <div class="contact-links">
+          <a href="mailto:hello@example.com">obafemivictor3@gmail.com</a>
+          <a href="https://wa.me/2349076400725" target="_blank" rel="noopener">WhatsApp →</a>
+          <a href="#" target="_blank" rel="noopener">TikTok →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span id="year"></span> Obafemi Victor. Built, not templated.
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navToggle = document.getElementById('navToggle');
+  const primaryNav = document.getElementById('primary-nav');
+  navToggle.addEventListener('click', () => {
+    const isOpen = primaryNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  primaryNav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      primaryNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+</body>
+</html>
