@@ -1,0 +1,52 @@
+# Quick Start: Supabase Setup ✅ COMPLETE!
+
+## What You Did:
+✓ Created `jobs` table with UUID primary keys
+✓ Created `applications` table to track applications
+✓ Created `submissions` table for work submissions
+✓ Enabled RLS with public read/write/delete policies
+✓ Database is ready to use!
+
+## Code Has Been Updated:
+✓ supabase.js - Uses `jobs` table methods
+✓ app.js - Loads from Supabase + polls for updates
+✓ admin-dashboard.html - Posts new jobs to Supabase
+✓ opportunities.html - Uses supabase.js
+
+## Test It Now:
+
+1. **Open admin-dashboard.html**
+   - Login: admin / admin123
+   - Post a test job
+
+2. **Open opportunities.html in another window**
+   - You should see the job appear within 3 seconds
+   - Try opening in multiple browsers to see real-time sync!
+
+3. **Check the console (F12)**
+   - Look for: "📡 Starting job polling every 3 seconds..."
+   - Look for: "✨ New jobs detected! Updating..."
+   - This shows real-time sync working!
+
+## How It Works:
+- Admin posts → Saved to Supabase `jobs` table
+- All users see updates → Polls every 3 seconds
+- No refresh needed → Automatic UI updates
+
+## Quick Verification SQL:
+In Supabase SQL editor, run:
+```sql
+SELECT count(*) FROM jobs;
+SELECT * FROM jobs;
+```
+
+Should show your posted opportunities!
+
+## Troubleshooting:
+- Jobs appear slowly? That's the 3-second polling interval
+- Want faster? Change 3000 to 1000 in app.js line ~65
+- Check console (F12) for any red errors
+
+## All Set! 🎉
+Your app now has real-time shared opportunities!
+

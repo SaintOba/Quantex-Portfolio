@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - DevBridge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">DevBridge</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="my-skills.html">My Skills</a></li>
+                <li><a href="opportunities.html">Opportunities</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="user-section">
+                <span id="user-name">Guest</span>
+                <a href="login.html" id="login-link" style="margin-right:10px;">Log In</a>
+                <a href="profile.html" class="profile-btn active">Profile</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Profile Hero Section -->
+    <section class="profile-hero">
+        <div class="container">
+            <div class="profile-header-content">
+                <div class="profile-avatar-large">
+                    <div class="avatar-placeholder-large">👤</div>
+                </div>
+                <div class="profile-header-info">
+                    <h1 id="profile-name">Guest User</h1>
+                    <p class="profile-email" id="profile-email">guest@devbridge.com</p>
+                    <div class="profile-actions">
+                        <button class="cta-button primary" id="edit-profile-btn">✏️ Edit Profile</button>
+                        <button class="cta-button secondary">⬇️ Download Resume</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Stats Section -->
+    <section class="section profile-stats-section">
+        <div class="container">
+            <div class="stats-grid-profile">
+                <div class="stat-card-profile">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-info">
+                        <h3 class="stat-value" id="stat-skills">0</h3>
+                        <p class="stat-label">Skills Added</p>
+                        <a href="my-skills.html" class="stat-link">Add Skills →</a>
+                    </div>
+                </div>
+
+                <div class="stat-card-profile">
+                    <div class="stat-icon">💼</div>
+                    <div class="stat-info">
+                        <h3 class="stat-value" id="stat-opportunities">0</h3>
+                        <p class="stat-label">Opportunities Applied</p>
+                        <a href="opportunities.html" class="stat-link">Browse →</a>
+                    </div>
+                </div>
+
+                <div class="stat-card-profile">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <h3 class="stat-value" id="stat-matches">0</h3>
+                        <p class="stat-label">Matches Found</p>
+                        <a href="opportunities.html" class="stat-link">View →</a>
+                    </div>
+                </div>
+
+                <div class="stat-card-profile">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <h3 class="stat-value" id="stat-progress">0%</h3>
+                        <p class="stat-label">Profile Complete</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Progress Section - NEW -->
+    <section class="section journey-progress-section">
+        <div class="container">
+            <h2 class="journey-title">📈 Your DevBridge Journey</h2>
+            <div class="journey-progress-grid">
+                <div class="journey-card">
+                    <div class="journey-card-icon">📝</div>
+                    <div class="journey-card-content">
+                        <h3 class="journey-card-label">Applied</h3>
+                        <p class="journey-card-value" id="journey-applied">0</p>
+                        <p class="journey-card-subtitle">Opportunities</p>
+                    </div>
+                    <div class="journey-progress-indicator">
+                        <div class="progress-line"></div>
+                    </div>
+                </div>
+
+                <div class="journey-card">
+                    <div class="journey-card-icon">⚙️</div>
+                    <div class="journey-card-content">
+                        <h3 class="journey-card-label">In Progress</h3>
+                        <p class="journey-card-value" id="journey-in-progress">0</p>
+                        <p class="journey-card-subtitle">Accepted & Working</p>
+                    </div>
+                    <div class="journey-progress-indicator">
+                        <div class="progress-line"></div>
+                    </div>
+                </div>
+
+                <div class="journey-card">
+                    <div class="journey-card-icon">✅</div>
+                    <div class="journey-card-content">
+                        <h3 class="journey-card-label">Completed</h3>
+                        <p class="journey-card-value" id="journey-completed">0</p>
+                        <p class="journey-card-subtitle">Reviewed & Done</p>
+                    </div>
+                    <div class="journey-progress-indicator">
+                        <div class="progress-line" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Visualization -->
+            <div class="journey-path">
+                <div class="path-segment" id="path-applied"></div>
+                <div class="path-dot applied-dot"></div>
+                <div class="path-segment" id="path-progress"></div>
+                <div class="path-dot progress-dot"></div>
+                <div class="path-segment" id="path-completed"></div>
+                <div class="path-dot completed-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Profile Content -->
+    <section class="section profile-content">
+        <div class="container">
+            <!-- My Skills Section -->
+            <div class="profile-section card-style">
+                <div class="section-header-profile">
+                    <h2>My Skills</h2>
+                    <a href="my-skills.html" class="btn-link">Manage All Skills →</a>
+                </div>
+                <div id="profile-skills" class="skills-showcase">
+                    <div class="empty-state-profile">
+                        <div class="empty-icon">🎯</div>
+                        <h3>No skills yet</h3>
+                        <p>Start building your profile by adding the skills you've learned</p>
+                        <a href="my-skills.html" class="cta-button primary">Add Your First Skill</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended Opportunities Section -->
+            <div class="profile-section card-style">
+                <div class="section-header-profile">
+                    <h2>🌟 Recommended for You</h2>
+                    <a href="opportunities.html" class="btn-link">View All →</a>
+                </div>
+                <p class="section-subtitle">Personalized opportunities based on your skills</p>
+                <div id="recommended-opportunities" class="opportunities-cards-grid">
+                    <div class="empty-state-profile">
+                        <div class="empty-icon">💡</div>
+                        <h3>Add skills to get recommendations</h3>
+                        <p>Complete your skill profile to see opportunities tailored just for you</p>
+                        <a href="my-skills.html" class="cta-button primary">Build Your Profile</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Messages / Inbox Section -->
+            <div class="profile-section card-style">
+                <div class="section-header-profile">
+                    <h2>✉️ Messages</h2>
+                    <span class="section-count" id="messages-count">(0)</span>
+                </div>
+                <p class="section-subtitle">Messages from the DevBridge team</p>
+                <div id="messages-list">
+                    <div class="empty-state-profile">
+                        <div class="empty-icon">📭</div>
+                        <h3>No messages yet</h3>
+                    </div>
+                </div>
+            </div>
+                            
+
+            <!-- Applied Opportunities Section -->
+            <div class="profile-section card-style">
+                <div class="section-header-profile">
+                    <h2>📋 Your Applications</h2>
+                    <span class="section-count" id="applied-count">(0)</span>
+                </div>
+                <p class="section-subtitle">Track opportunities you've applied to</p>
+                <div id="applied-opportunities" class="opportunities-cards-grid">
+                    <div class="empty-state-profile">
+                        <div class="empty-icon">📭</div>
+                        <h3>No applications yet</h3>
+                        <p>Find and apply to opportunities that match your skills</p>
+                        <a href="opportunities.html" class="cta-button primary">Find Opportunities</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Files & Submissions Section -->
+            <div class="profile-section card-style" id="work-files-section" style="display: none;">
+                <div class="section-header-profile">
+                    <h2>📁 Work Files & Submissions</h2>
+                </div>
+                
+                <!-- Downloadable Work Files -->
+                <div class="work-files-container">
+                    <h3>📥 Files to Download</h3>
+                    <p class="section-subtitle">Download work files from your accepted opportunities</p>
+                    <div id="downloadable-files-list" class="files-list">
+                        <div class="empty-state-profile" style="text-align: center; padding: 20px;">
+                            <p>No files available yet. Accept an opportunity to get started.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Work Submission -->
+                <div class="submission-form-container" style="margin-top: 30px;">
+                    <h3>📤 Submit Your Work</h3>
+                    <p class="section-subtitle">Upload completed work files for review</p>
+                    <form id="work-submission-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="submission-job-select">Select Opportunity *</label>
+                            <select id="submission-job-select" required>
+                                <option value="">-- Choose an opportunity --</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="submission-files">Choose files to submit *</label>
+                            <div class="file-drop-zone-submission" id="submission-drop-zone">
+                                <div class="drop-zone-content">
+                                    <div class="drop-icon">📎</div>
+                                    <p>Drag & drop files here or click to select</p>
+                                    <p style="font-size: 12px; color: #999;">Maximum 5 files per submission</p>
+                                </div>
+                                <input type="file" id="submission-files" multiple style="display: none;">
+                            </div>
+                            <div id="submission-file-preview" style="margin-top: 15px;">
+                                <!-- Files will be listed here -->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="submission-notes">Notes (Optional)</label>
+                            <textarea id="submission-notes" placeholder="Add any notes about your submission..." rows="3"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="cta-button primary">📤 Submit Work</button>
+                            <button type="button" class="cta-button secondary" onclick="document.getElementById('submission-job-select').value = ''; document.getElementById('submission-files').value = ''; document.getElementById('submission-file-preview').innerHTML = '';">Clear</button>
+                        </div>
+                    </form>
+
+                    <div id="no-applications-message" class="empty-state-profile" style="text-align: center; padding: 20px;">
+                        <p>No accepted opportunities yet. Accept an opportunity to start submitting work.</p>
+                    </div>
+                </div>
+
+                <!-- Submission History -->
+                <div class="submission-history-container" style="margin-top: 30px;">
+                    <h3>📋 Your Submissions</h3>
+                    <p class="section-subtitle">Track your submitted work and review status</p>
+                    <div id="submissions-history-list" class="submissions-list">
+                        <div class="empty-state-profile" style="text-align: center; padding: 20px;">
+                            <p>No submissions yet. Complete your work and submit it here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity & Achievements Section -->
+            <div class="profile-section card-style">
+                <div class="section-header-profile">
+                    <h2>📈 Your Journey</h2>
+                </div>
+                <p class="section-subtitle">Track your progress and celebrate milestones</p>
+                <div class="journey-timeline">
+                    <div class="journey-item">
+                        <div class="journey-marker">🎬</div>
+                        <div class="journey-content">
+                            <h4>Get Started</h4>
+                            <p>Welcome to DevBridge! Begin by adding your first skill.</p>
+                        </div>
+                    </div>
+                    <div class="journey-divider"></div>
+                    <div class="journey-item">
+                        <div class="journey-marker">💼</div>
+                        <div class="journey-content">
+                            <h4>Find Opportunities</h4>
+                            <p>Browse and apply to opportunities matching your skills.</p>
+                        </div>
+                    </div>
+                    <div class="journey-divider"></div>
+                    <div class="journey-item">
+                        <div class="journey-marker">🚀</div>
+                        <div class="journey-content">
+                            <h4>Gain Experience</h4>
+                            <p>Build real-world experience and grow your portfolio.</p>
+                        </div>
+                    </div>
+                    <div class="journey-divider"></div>
+                    <div class="journey-item">
+                        <div class="journey-marker">🏆</div>
+                        <div class="journey-content">
+                            <h4>Succeed</h4>
+                            <p>Launch your career with skills and experience!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Profile Modal -->
+    <div id="edit-profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Edit Your Profile</h2>
+                <p>Keep your information up to date</p>
+            </div>
+            <form id="edit-profile-form" class="profile-form">
+                <div class="form-group">
+                    <label for="edit-name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="edit-name" required placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="edit-email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="edit-bio">Bio</label>
+                    <textarea id="edit-bio" rows="4" placeholder="Tell us about your learning journey..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-location">Location</label>
+                    <input type="text" id="edit-location" placeholder="City, Country">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="cta-button primary">Save Changes</button>
+                    <button type="button" class="cta-button secondary close-modal-btn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DevBridge</h3>
+                    <p>Turning skills into experience, one opportunity at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="my-skills.html">My Skills</a></li>
+                        <li><a href="opportunities.html">Opportunities</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@devbridge.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevBridge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

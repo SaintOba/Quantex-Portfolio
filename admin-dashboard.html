@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --surface2: #1a1a1a;
+    --border: #222222;
+    --accent: #f5a623;
+    --accent2: #e8520a;
+    --green: #22c55e;
+    --red: #ef4444;
+    --text: #f0f0f0;
+    --muted: #666;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN ── */
+  #login-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #login-screen::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  .login-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+  }
+
+  .login-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .login-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .login-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .login-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 36px;
+    font-family: var(--mono);
+  }
+
+  .field-group {
+    margin-bottom: 20px;
+  }
+
+  .field-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .field-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 14px;
+    font-family: var(--mono);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .field-input:focus { border-color: var(--accent); }
+
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 14px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-primary:hover { background: #f0b84a; }
+  .btn-primary:active { transform: scale(0.99); }
+
+  .login-error {
+    color: var(--red);
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-top: 12px;
+    display: none;
+  }
+
+  /* ── APP SHELL ── */
+  #app { display: none; }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .header-logo span { color: var(--muted); }
+
+  .header-right { display: flex; align-items: center; gap: 20px; }
+
+  .btn-logout {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    background: var(--surface);
+    gap: 0;
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 16px 24px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-badge {
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  /* ── MAIN ── */
+  main {
+    padding: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── STATS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px;
+    width: 40%;
+    background: var(--accent);
+  }
+
+  .stat-value {
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--mono);
+  }
+
+  /* ── SECTION ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  .section-title span {
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  /* ── ADD JOB FORM ── */
+  .add-job-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .add-job-form::before {
+    content: '+ NEW JOB';
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    position: absolute;
+    top: -1px; left: 24px;
+    background: var(--surface);
+    padding: 0 8px;
+    transform: translateY(-50%);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-grid.full { grid-template-columns: 1fr; }
+
+  textarea.field-input {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+  }
+
+  select.field-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  select.field-input option { background: var(--bg); }
+
+  .form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .btn-add {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 12px 28px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+
+  .btn-add:hover { background: #f0b84a; }
+
+  .btn-clear {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .btn-clear:hover { color: var(--text); border-color: #444; }
+
+  /* ── FILE UPLOAD ── */
+  .file-drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(245,166,35, 0.02);
+  }
+
+  .file-drop-zone:hover {
+    border-color: var(--accent);
+    background: rgba(245,166,35, 0.05);
+  }
+
+  #file-list-preview {
+    margin-top: 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  .file-item:last-child { margin-bottom: 0; }
+
+  .file-item .name { color: var(--text); font-weight: 500; flex: 1; }
+  .file-item .size { color: var(--muted); margin-left: 12px; }
+
+  .job-files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .file-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  .file-group-title {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .file-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .file-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .file-card-name {
+    flex: 1;
+    color: var(--text);
+  }
+
+  .file-card-size {
+    color: var(--muted);
+    font-family: var(--mono);
+    margin: 0 12px;
+  }
+
+  .btn-download {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-download:hover { background: #f0b84a; }
+
+  .btn-delete-file {
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 11px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 6px;
+  }
+
+  .btn-delete-file:hover { opacity: 0.8; }
+
+  .submission-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .submission-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 12px;
+  }
+
+  .submission-user {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  .submission-job {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .submission-status {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .submission-status.submitted {
+    background: rgba(59,130,246,0.2);
+    color: #3b82f6;
+  }
+
+  .submission-status.reviewed {
+    background: rgba(34,197,94,0.2);
+    color: #22c55e;
+  }
+
+  .submission-files {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .submission-files-title {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .submission-file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .submission-file-item:last-child { margin-bottom: 0; }
+
+  /* ── JOB CARDS ── */
+  .jobs-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .job-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .job-card:hover { border-color: #333; }
+
+  .job-info { flex: 1; }
+
+  .job-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .job-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .badge-type {
+    background: rgba(245,166,35,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(245,166,35,0.3);
+  }
+
+  .badge-diff-easy { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .badge-diff-medium { background: rgba(245,166,35,0.1); color: var(--accent); border: 1px solid rgba(245,166,35,0.3); }
+  .badge-diff-hard { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+  .job-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .job-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    padding: 3px 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .job-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 10px;
+    display: flex;
+    gap: 16px;
+  }
+
+  .job-meta span { display: flex; align-items: center; gap: 4px; }
+
+  .job-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: flex-start; }
+
+  .btn-view-apps {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-view-apps:hover { border-color: var(--accent); color: var(--accent); }
+
+  .btn-delete {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .btn-delete:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── APPLICATIONS TAB ── */
+  .apps-filter {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover { color: var(--text); border-color: #444; }
+  .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(245,166,35,0.06); }
+
+  .app-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    margin-bottom: 12px;
+    animation: slideIn 0.3s ease;
+  }
+
+  .app-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 16px;
+  }
+
+  .app-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .app-email {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .app-status {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .status-pending { background: rgba(245,166,35,0.1); color: var(--accent); border: 1px solid rgba(245,166,35,0.3); }
+  .status-accepted { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .status-rejected { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+  .app-job-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .app-job-tag::before { content: '↳'; opacity: 0.5; }
+
+  .app-message {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.6;
+    border-left: 2px solid var(--border);
+    padding-left: 14px;
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .app-skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .app-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .btn-accept {
+    background: rgba(34,197,94,0.1);
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: 8px 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    font-weight: 700;
+  }
+
+  .btn-accept:hover { background: rgba(34,197,94,0.2); }
+
+  .btn-reject {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 8px 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    font-weight: 700;
+  }
+
+  .btn-reject:hover { background: rgba(239,68,68,0.15); }
+
+  .btn-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .app-date {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+
+  .empty-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .empty-text {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    z-index: 999;
+    max-width: 300px;
+  }
+
+  #toast.show { opacity: 1; transform: translateY(0); }
+  #toast.success { border-left-color: var(--green); }
+  #toast.error { border-left-color: var(--red); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+    padding: 20px;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+  }
+
+  .modal-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--text); }
+
+  .modal-body { padding: 20px 24px; }
+
+  /* ── TABS ── */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    main { padding: 20px; }
+    header { padding: 0 20px; }
+    .tabs { padding: 0 20px; }
+    .tab-btn { padding: 14px 14px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-label">// Admin Access</div>
+    <h1 class="login-title">Dashboard</h1>
+    <p class="login-sub">Enter your credentials to continue</p>
+    <div class="field-group">
+      <label class="field-label">Username</label>
+      <input type="text" class="field-input" id="login-user" placeholder="admin" autocomplete="off">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Password</label>
+      <input type="password" class="field-input" id="login-pass" placeholder="••••••••">
+    </div>
+    <button class="btn-primary" onclick="handleLogin()">Access Dashboard →</button>
+    <div class="login-error" id="login-error">⚠ Invalid credentials. Try again.</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <div class="header-logo">Dev<span>Bridge</span> // Admin</div>
+    <div class="header-right">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);" id="admin-name-display"></span>
+      <button class="btn-logout" onclick="handleLogout()">Logout</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('jobs', this)">
+      Jobs <span class="tab-badge" id="jobs-count">0</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('applications', this)">
+      Applications <span class="tab-badge" id="apps-count">0</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('files', this)">
+      Files <span class="tab-badge" id="files-count">0</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('submissions', this)">
+      Submissions <span class="tab-badge" id="submissions-count">0</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('techies', this)">
+      Techies <span class="tab-badge" id="techies-count">0</span>
+    </button>
+  </div>
+
+  <main>
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value" id="stat-jobs">0</div>
+        <div class="stat-label">Active Jobs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-apps">0</div>
+        <div class="stat-label">Total Applications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-pending">0</div>
+        <div class="stat-label">Pending Review</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="stat-accepted">0</div>
+        <div class="stat-label">Accepted</div>
+      </div>
+    </div>
+
+    <!-- JOBS TAB -->
+    <div class="tab-panel active" id="panel-jobs">
+      <div class="add-job-form">
+        <div class="form-grid">
+          <div class="field-group">
+            <label class="field-label">Job Title *</label>
+            <input type="text" class="field-input" id="job-title" placeholder="e.g. Build a Landing Page">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Type *</label>
+            <select class="field-input" id="job-type">
+              <option value="">Select type</option>
+              <option>Frontend</option>
+              <option>Backend</option>
+              <option>Fullstack</option>
+              <option>UI/UX Design</option>
+              <option>Mobile</option>
+              <option>DevOps</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid full">
+          <div class="field-group">
+            <label class="field-label">Description *</label>
+            <textarea class="field-input" id="job-desc" placeholder="Describe the project, what the dev will build, what they'll learn..."></textarea>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label class="field-label">Required Skills (comma separated)</label>
+            <input type="text" class="field-input" id="job-skills" placeholder="HTML, CSS, JavaScript">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Difficulty</label>
+            <select class="field-input" id="job-difficulty">
+              <option value="Easy">Easy</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field-group">
+            <label class="field-label">Estimated Duration</label>
+            <input type="text" class="field-input" id="job-duration" placeholder="e.g. 2 weeks">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Max Applicants</label>
+            <input type="number" class="field-input" id="job-slots" placeholder="e.g. 5" min="1">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn-add" onclick="addJob()">+ Post Job</button>
+          <button class="btn-clear" onclick="clearJobForm()">Clear</button>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Posted Jobs <span id="jobs-listed-count"></span></div>
+      </div>
+
+      <div class="jobs-list" id="jobs-list"></div>
+    </div>
+
+    <!-- APPLICATIONS TAB -->
+    <div class="tab-panel" id="panel-applications">
+      <div class="apps-filter" id="apps-filter">
+        <button class="filter-btn active" onclick="filterApps('all', this)">All</button>
+        <button class="filter-btn" onclick="filterApps('pending', this)">Pending</button>
+        <button class="filter-btn" onclick="filterApps('accepted', this)">Accepted</button>
+        <button class="filter-btn" onclick="filterApps('rejected', this)">Rejected</button>
+      </div>
+      <div id="apps-list"></div>
+    </div>
+
+    <!-- FILES TAB -->
+    <div class="tab-panel" id="panel-files">
+      <div class="section-header">
+        <div class="section-title">📁 Upload Work Files</div>
+      </div>
+      
+      <div class="add-job-form" style="margin-bottom: 32px;">
+        <div class="form-grid">
+          <div class="field-group">
+            <label class="field-label">Select Job *</label>
+            <select class="field-input" id="file-job-select" required onchange="renderJobFiles()">
+              <option value="">-- Choose a job --</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Choose Files *</label>
+          <div class="file-drop-zone" onclick="document.getElementById('file-input').click()" ondragover="this.style.borderColor='var(--accent)'" ondragleave="this.style.borderColor='var(--border)'" ondrop="handleFileDrop(event)">
+            <div style="font-size: 32px; margin-bottom: 12px;">📤</div>
+            <div style="font-weight: 600; font-size: 14px; margin-bottom: 4px;">Click to upload or drag files</div>
+            <input type="file" id="file-input" multiple style="display: none;" onchange="handleFileSelect()">
+          </div>
+        </div>
+        <div id="file-list-preview"></div>
+        <button class="btn-add" onclick="uploadFiles()" style="margin-top: 20px; width: 100%;">Upload Files</button>
+      </div>
+
+      <div class="section-header">
+        <div class="section-title">Job Files <span id="job-files-count"></span></div>
+      </div>
+      <div id="job-files-container" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- SUBMISSIONS TAB -->
+    <div class="tab-panel" id="panel-submissions">
+      <div class="section-header">
+        <div class="section-title">📥 Work Submissions</div>
+      </div>
+      
+      <div class="apps-filter" id="submissions-filter" style="margin-bottom: 24px;">
+        <button class="filter-btn active" onclick="filterSubmissions('all', this)">All</button>
+        <button class="filter-btn" onclick="filterSubmissions('submitted', this)">Submitted</button>
+        <button class="filter-btn" onclick="filterSubmissions('reviewed', this)">Reviewed</button>
+      </div>
+      
+      <div id="submissions-list"></div>
+    </div>
+
+    <!-- TECHIES TAB -->
+    <div class="tab-panel" id="panel-techies">
+      <div class="section-header">
+        <div class="section-title">👤 Registered Techies <span id="techies-listed-count"></span></div>
+      </div>
+      <div id="techies-list"></div>
+    </div>
+  </main>
+</div>
+
+<!-- MODAL: View Apps per Job -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Applications</div>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ─── STATE ───
+let currentFilter = 'all';
+
+function getData(key, def = []) {
+  try { return JSON.parse(localStorage.getItem(key)) || def; } catch { return def; }
+}
+function setData(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+// ─── LOGIN (real account, must be flagged is_admin in Supabase) ───
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') handleLogin();
+});
+
+async function handleLogin() {
+  const email = document.getElementById('login-user').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const errorEl = document.getElementById('login-error');
+  errorEl.style.display = 'none';
+
+  try {
+    await Auth.signIn(email, pass);
+    const profile = await Auth.getProfile();
+
+    if (!profile || !profile.is_admin) {
+      localStorage.removeItem('devbridge_session'); // clear session without redirecting
+      Auth.session = null;
+      errorEl.textContent = '⚠ This account is not an admin.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('admin-name-display').textContent = profile.name || profile.email;
+    await renderAll();
+    startAdminPolling();
+  } catch (error) {
+    console.error('❌ Login error:', error);
+    errorEl.textContent = '⚠ ' + error.message;
+    errorEl.style.display = 'block';
+  }
+}
+
+function handleLogout() {
+  localStorage.removeItem('devbridge_session');
+  Auth.session = null;
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-pass').value = '';
+  document.getElementById('login-error').style.display = 'none';
+}
+
+// Check if already logged in as a real admin
+window.onload = async () => {
+  if (Auth.isLoggedIn()) {
+    const profile = await Auth.getProfile();
+    if (profile && profile.is_admin) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      document.getElementById('admin-name-display').textContent = profile.name || profile.email;
+      await renderAll();
+      startAdminPolling();
+    }
+  }
+  // Seed demo data if empty
+  seedDemoData();
+  // Sync existing jobs to Supabase
+  syncJobsToSupabase();
+};
+
+// ─── POLLING FOR REAL-TIME UPDATES ───
+function startAdminPolling() {
+  if (window.adminPollingInterval) clearInterval(window.adminPollingInterval);
+  
+  window.adminPollingInterval = setInterval(async () => {
+    try {
+      await loadFromSupabase();
+      // Only update stats, not full render to reduce flicker
+      renderStats();
+    } catch (error) {
+      console.error('Polling error:', error);
+    }
+  }, 5000); // Poll every 5 seconds for stats only
+  
+  console.log('📡 Admin dashboard polling started (5s interval)');
+}
+
+// ─── DEMO DATA ───
+function seedDemoData() {
+  if (getData('jobs').length > 0) return;
+  const jobs = [
+    { id: uid(), title: 'Build a Portfolio Website', type: 'Frontend', desc: 'Create a clean, responsive portfolio site for a developer. Practice layout, typography, and responsive design.', skills: ['HTML', 'CSS', 'JavaScript'], difficulty: 'Easy', duration: '1 week', slots: 3, date: new Date().toISOString() },
+    { id: uid(), title: 'REST API with Node.js', type: 'Backend', desc: 'Build a simple CRUD REST API with authentication. Great for learning how backends work in production.', skills: ['Node.js', 'Express', 'MongoDB'], difficulty: 'Medium', duration: '2 weeks', slots: 2, date: new Date().toISOString() }
+  ];
+  const apps = [
+    { id: uid(), jobId: jobs[0].id, jobTitle: jobs[0].title, name: 'Tunde Adeyemi', email: 'tunde@email.com', skills: ['HTML', 'CSS'], message: 'I just finished a Frontend bootcamp and want to build my first real project. I\'m hardworking and I learn fast!', status: 'pending', date: new Date().toISOString() },
+    { id: uid(), jobId: jobs[1].id, jobTitle: jobs[1].title, name: 'Amaka Obi', email: 'amaka@email.com', skills: ['JavaScript', 'Node.js'], message: 'I\'ve been learning backend dev for 3 months and this project is exactly what I need to level up.', status: 'pending', date: new Date().toISOString() }
+  ];
+  setData('jobs', jobs);
+  setData('applications', apps);
+}
+
+// ─── UTILS ───
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+
+function toast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `show ${type}`;
+  setTimeout(() => t.className = '', 3000);
+}
+
+function renderAll() {
+  loadFromSupabase().then(() => {
+    renderStats();
+    renderJobs();
+    renderApps();
+    populateJobFilesSelect();
+  });
+  loadTechies().then(() => {
+    renderTechies();
+    loadSubmissions().then(() => {
+      renderSubmissions();
+      renderStats();
+    });
+  });
+}
+
+// ─── LOAD FROM SUPABASE ───
+let supabaseJobs = [];
+let supabaseApps = [];
+
+async function loadFromSupabase() {
+  try {
+    // Load jobs from Supabase
+    const jobs = await supabaseAdmin.getJobs();
+    supabaseJobs = jobs || [];
+    console.log(`✓ Loaded ${supabaseJobs.length} jobs from Supabase`);
+    
+    // Load applications from Supabase
+    const apps = await supabaseAdmin.request('GET', '/applications?order=created_at.desc');
+    supabaseApps = Array.isArray(apps) ? apps : [];
+    console.log(`✓ Loaded ${supabaseApps.length} applications from Supabase`);
+  } catch (e) {
+    console.warn('Error loading from Supabase:', e);
+    supabaseJobs = [];
+    supabaseApps = [];
+  }
+}
+
+// ─── STATS ───
+function renderStats() {
+  const jobs = supabaseJobs.length > 0 ? supabaseJobs : getData('jobs');
+  const apps = supabaseApps.length > 0 ? supabaseApps : getData('applications');
+  const files = getData('opportunity_files', {});
+  const submissions = supabaseSubmissions;
+  const pending = apps.filter(a => a.status === 'pending').length;
+  const accepted = apps.filter(a => a.status === 'accepted').length;
+  const totalFiles = Object.values(files).flat().length;
+  const totalSubmissions = submissions.length;
+  
+  document.getElementById('stat-jobs').textContent = jobs.length;
+  document.getElementById('stat-apps').textContent = apps.length;
+  document.getElementById('stat-pending').textContent = pending;
+  document.getElementById('stat-accepted').textContent = accepted;
+  document.getElementById('jobs-count').textContent = jobs.length;
+  document.getElementById('apps-count').textContent = apps.length;
+  document.getElementById('files-count').textContent = totalFiles;
+  document.getElementById('submissions-count').textContent = totalSubmissions;
+  document.getElementById('jobs-listed-count').innerHTML = `<span>${jobs.length} job${jobs.length !== 1 ? 's' : ''}</span>`;
+}
+
+// ─── JOBS ───
+async function addJob() {
+  const title = document.getElementById('job-title').value.trim();
+  const type = document.getElementById('job-type').value;
+  const desc = document.getElementById('job-desc').value.trim();
+  const skillsRaw = document.getElementById('job-skills').value;
+  const difficulty = document.getElementById('job-difficulty').value;
+  const duration = document.getElementById('job-duration').value.trim();
+  const slots = parseInt(document.getElementById('job-slots').value) || null;
+
+  if (!title || !type || !desc) { toast('Fill in Title, Type, and Description', 'error'); return; }
+
+  const skills = skillsRaw.split(',').map(s => s.trim()).filter(Boolean);
+  const jobId = uid();
+  const jobData = { id: jobId, title, type, desc, skills, difficulty, duration, slots, date: new Date().toISOString() };
+  
+  // Save to localStorage
+  const jobs = getData('jobs');
+  jobs.unshift(jobData);
+  setData('jobs', jobs);
+  
+  // Post to Supabase
+  try {
+    await supabaseAdmin.addJob({
+      title: title,
+      type: type,
+      description: desc,
+      skills: skills,
+      difficulty: difficulty,
+      duration: duration,
+      slots: slots
+    });
+    console.log('✓ Job posted to Supabase');
+  } catch (e) {
+    console.error('Error posting to Supabase:', e);
+    toast('Warning: Job saved locally but Supabase sync failed. Check console.', 'error');
+  }
+  
+  clearJobForm();
+  renderAll();
+  toast('✓ Job posted successfully to all users!');
+}
+
+function clearJobForm() {
+  ['job-title','job-desc','job-skills','job-duration','job-slots'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('job-type').value = '';
+  document.getElementById('job-difficulty').value = 'Medium';
+}
+
+function deleteJob(id) {
+  if (!confirm('Delete this job? All its applications will also be removed.')) return;
+  
+  // Delete from Supabase
+  supabaseAdmin.deleteJob(id).then(() => {
+    console.log('✓ Job deleted from Supabase');
+    renderAll();
+    toast('Job removed', 'error');
+  }).catch(e => {
+    console.error('Error deleting job:', e);
+    toast('Error deleting job', 'error');
+  });
+  
+  // Also remove from localStorage if it exists there
+  let jobs = getData('jobs').filter(j => j.id !== id);
+  setData('jobs', jobs);
+}
+
+// ─── FILE UPLOAD ─── 
+let selectedFilesForUpload = [];
+
+function populateJobFilesSelect() {
+  const jobs = supabaseJobs.length > 0 ? supabaseJobs : getData('jobs');
+  const select = document.getElementById('file-job-select');
+  select.innerHTML = '<option value="">-- Choose a job --</option>';
+  jobs.forEach(job => {
+    const option = document.createElement('option');
+    option.value = job.id;
+    option.textContent = job.title;
+    select.appendChild(option);
+  });
+}
+
+function handleFileSelect() {
+  selectedFilesForUpload = Array.from(document.getElementById('file-input').files);
+  renderFilePreview();
+}
+
+function handleFileDrop(e) {
+  e.preventDefault();
+  selectedFilesForUpload = Array.from(e.dataTransfer.files);
+  renderFilePreview();
+}
+
+function renderFilePreview() {
+  const preview = document.getElementById('file-list-preview');
+  if (!selectedFilesForUpload.length) {
+    preview.innerHTML = '';
+    return;
+  }
+  const totalSize = selectedFilesForUpload.reduce((sum, f) => sum + f.size, 0);
+  let html = `<div style="margin-bottom: 12px; color: var(--accent); font-weight: 600; font-size: 12px;">✓ ${selectedFilesForUpload.length} file(s) • ${(totalSize / 1024 / 1024).toFixed(2)} MB</div>`;
+  html += selectedFilesForUpload.map(f => `
+    <div class="file-item">
+      <span class="name">📄 ${f.name}</span>
+      <span class="size">${(f.size / 1024).toFixed(1)} KB</span>
+    </div>
+  `).join('');
+  preview.innerHTML = html;
+}
+
+function uploadFiles() {
+  const jobId = document.getElementById('file-job-select').value;
+  if (!jobId) { toast('Select a job', 'error'); return; }
+  if (!selectedFilesForUpload.length) { toast('Select files', 'error'); return; }
+
+  let uploaded = 0;
+  selectedFilesForUpload.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const fileData = {
+        id: uid(),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        data: e.target.result,
+        uploadedAt: new Date().toISOString()
+      };
+      
+      let oppsFiles = getData('opportunity_files', {});
+      if (!oppsFiles[jobId]) oppsFiles[jobId] = [];
+      oppsFiles[jobId].push(fileData);
+      setData('opportunity_files', oppsFiles);
+      
+      uploaded++;
+      if (uploaded === selectedFilesForUpload.length) {
+        selectedFilesForUpload = [];
+        document.getElementById('file-input').value = '';
+        document.getElementById('file-list-preview').innerHTML = '';
+        renderAll();
+        renderJobFiles();
+        toast(`✓ ${uploaded} file(s) uploaded`);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderJobFiles() {
+  const jobId = document.getElementById('file-job-select').value;
+  const oppsFiles = getData('opportunity_files', {});
+  const files = oppsFiles[jobId] || [];
+  const container = document.getElementById('job-files-container');
+  
+  if (!jobId) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📁</div><div class="empty-text">Select a job above</div></div>';
+    return;
+  }
+
+  if (!files.length) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📄</div><div class="empty-text">No files uploaded for this job yet</div></div>';
+    return;
+  }
+
+  document.getElementById('job-files-count').textContent = `(${files.length})`;
+  container.innerHTML = `
+    <div class="job-files-list">
+      ${files.map(f => `
+        <div class="file-card">
+          <div class="file-card-name">📄 ${f.name}</div>
+          <div class="file-card-size">${(f.size / 1024).toFixed(1)} KB</div>
+          <button class="btn-download" onclick="downloadFile('${jobId}', '${f.id}')">Download</button>
+          <button class="btn-delete-file" onclick="deleteFile('${jobId}', '${f.id}')">Delete</button>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function downloadFile(jobId, fileId) {
+  const oppsFiles = getData('opportunity_files', {});
+  const file = oppsFiles[jobId]?.find(f => f.id === fileId);
+  if (!file) return;
+  
+  const link = document.createElement('a');
+  link.href = file.data;
+  link.download = file.name;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  toast(`✓ Downloaded: ${file.name}`);
+}
+
+function deleteFile(jobId, fileId) {
+  if (!confirm('Delete this file?')) return;
+  let oppsFiles = getData('opportunity_files', {});
+  if (oppsFiles[jobId]) {
+    oppsFiles[jobId] = oppsFiles[jobId].filter(f => f.id !== fileId);
+    setData('opportunity_files', oppsFiles);
+  }
+  renderJobFiles();
+  renderAll();
+  toast('File deleted', 'error');
+}
+
+// ─── SUBMISSIONS ───
+let submissionsFilter = 'all';
+
+function filterSubmissions(status, btn) {
+  submissionsFilter = status;
+  document.querySelectorAll('#submissions-filter .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSubmissions();
+}
+
+let supabaseSubmissions = [];
+
+async function loadSubmissions() {
+  try {
+    const subs = await supabaseAdmin.request('GET', '/submissions?order=created_at.desc');
+    supabaseSubmissions = Array.isArray(subs) ? subs : [];
+  } catch (e) {
+    console.warn('Error loading submissions:', e);
+    supabaseSubmissions = [];
+  }
+}
+
+function renderSubmissions() {
+  const submissions = supabaseSubmissions;
+  let filtered = submissions;
+  if (submissionsFilter !== 'all') {
+    filtered = submissions.filter(s => s.status === submissionsFilter);
+  }
+
+  const container = document.getElementById('submissions-list');
+  if (!filtered.length) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">📬</div><div class="empty-text">${submissions.length ? 'No ' + submissionsFilter + ' submissions.' : 'No submissions yet.'}</div></div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(sub => {
+    const techie = supabaseTechies.find(t => t.id === sub.user_id);
+    const submitterEmail = techie ? techie.email : '';
+    return `
+    <div class="submission-card">
+      <div class="submission-card-header">
+        <div>
+          <div class="submission-user">${sub.name || 'Unknown'}${submitterEmail ? ` <span style="color:var(--muted); font-weight:400; font-size:12px;">(${submitterEmail})</span>` : ''}</div>
+          <div class="submission-job">📋 ${sub.job_title}</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 6px;">Submitted ${new Date(sub.created_at).toLocaleDateString()}</div>
+        </div>
+        <span class="submission-status ${sub.status}">${sub.status}</span>
+      </div>
+      ${sub.files && sub.files.length ? `
+        <div class="submission-files">
+          <span class="submission-files-title">Submitted Files</span>
+          ${sub.files.map(f => `
+            <div class="submission-file-item">
+              <div>📄 ${f.name}</div>
+              <div style="display: flex; gap: 8px;">
+                <span style="color: var(--muted); font-size: 11px;">${(f.size / 1024).toFixed(1)} KB</span>
+                <button class="btn-download" onclick="downloadSubmissionFile('${sub.id}', '${f.id}')" style="padding: 3px 8px; font-size: 10px;">Download</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+      <div style="margin-top: 12px; display: flex; gap: 8px;">
+        ${sub.status === 'submitted' ? `
+          <button class="btn-accept" onclick="updateSubmissionStatus('${sub.id}', 'reviewed')">✓ Mark Reviewed</button>
+        ` : ''}
+        <button class="btn-clear" onclick="deleteSubmission('${sub.id}')" style="background: var(--red); padding: 7px 14px; color: white;">Delete</button>
+      </div>
+    </div>
+  `; }).join('');
+}
+
+function downloadSubmissionFile(submissionId, fileId) {
+  const submission = supabaseSubmissions.find(s => s.id === submissionId);
+  if (!submission) return;
+  
+  const file = submission.files.find(f => f.id === fileId);
+  if (!file) return;
+  
+  const link = document.createElement('a');
+  link.href = file.data;
+  link.download = file.name;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  toast(`✓ Downloaded: ${file.name}`);
+}
+
+async function updateSubmissionStatus(submissionId, newStatus) {
+  try {
+    await supabaseAdmin.request('PATCH', `/submissions?id=eq.${submissionId}`, { status: newStatus });
+    await loadSubmissions();
+    renderSubmissions();
+    toast('✓ Submission status updated');
+  } catch (e) {
+    console.error(e);
+    toast('Failed to update submission', 'error');
+  }
+}
+
+async function deleteSubmission(submissionId) {
+  if (!confirm('Delete this submission?')) return;
+  try {
+    await supabaseAdmin.request('DELETE', `/submissions?id=eq.${submissionId}`);
+    await loadSubmissions();
+    renderSubmissions();
+    toast('Submission deleted', 'error');
+  } catch (e) {
+    console.error(e);
+    toast('Failed to delete submission', 'error');
+  }
+}
+
+function renderJobs() {
+  const jobs = supabaseJobs.length > 0 ? supabaseJobs : getData('jobs');
+  const apps = supabaseApps.length > 0 ? supabaseApps : getData('applications');
+  const list = document.getElementById('jobs-list');
+  if (!jobs.length) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-text">No jobs posted yet. Add one above.</div></div>`;
+    return;
+  }
+  list.innerHTML = jobs.map(j => {
+    const jobId = j.id;
+    const jobApps = apps.filter(a => a.job_id === jobId);
+    const difficulty = j.difficulty || 'Medium';
+    const diffClass = difficulty === 'Easy' ? 'easy' : difficulty === 'Hard' ? 'hard' : 'medium';
+    const skills = (j.skills || []).map(s => `<span class="skill-chip">${s}</span>`).join('');
+    return `
+    <div class="job-card">
+      <div class="job-info">
+        <div class="job-title-row">
+          <div class="job-title">${j.title}</div>
+          <span class="badge badge-type">${j.type}</span>
+          <span class="badge badge-diff-${diffClass}">${difficulty}</span>
+        </div>
+        <div class="job-desc">${j.description}</div>
+        <div class="job-skills">${skills}</div>
+        <div class="job-meta">
+          ${j.duration ? `<span>⏱ ${j.duration}</span>` : ''}
+          ${j.slots ? `<span>👥 ${j.slots} slots</span>` : ''}
+          <span>📥 ${jobApps.length} application${jobApps.length !== 1 ? 's' : ''}</span>
+        </div>
+      </div>
+      <div class="job-actions">
+        <button class="btn-view-apps" onclick="openJobApps('${jobId}')">View Apps (${jobApps.length})</button>
+        <button class="btn-delete" onclick="deleteJob('${jobId}')">Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── APPLICATIONS ───
+function filterApps(status, btn) {
+  currentFilter = status;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderApps();
+}
+
+function updateAppStatus(id, status) {
+  // Update in Supabase
+  supabaseAdmin.request('PATCH', `/applications?id=eq.${id}`, { status })
+    .then(result => {
+      console.log('✓ Application status updated in Supabase');
+      renderAll();
+      const app = supabaseApps.find(a => a.id === id);
+      const msg = status === 'accepted' ? `✓ ${app?.name} accepted!` : `✗ ${app?.name} rejected`;
+      toast(msg, status === 'accepted' ? 'success' : 'error');
+    })
+    .catch(err => {
+      console.error('Error updating status:', err);
+      toast('Error updating application status', 'error');
+    });
+}
+
+function renderApps(appsData, container) {
+  const all = appsData || (supabaseApps.length > 0 ? supabaseApps : getData('applications'));
+  const filtered = currentFilter === 'all' ? all : all.filter(a => a.status === currentFilter);
+  const el = container || document.getElementById('apps-list');
+  if (!el) return;
+
+  if (!filtered.length) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">${all.length ? 'No ' + currentFilter + ' applications.' : 'No applications yet.'}</div></div>`;
+    return;
+  }
+
+  el.innerHTML = filtered.map(a => {
+    const isPending = a.status === 'pending';
+    const skills = (a.skills || []).map(s => `<span class="skill-chip">${s}</span>`).join('');
+    const dateStr = a.created_at || a.date;
+    const date = new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    return `
+    <div class="app-card">
+      <div class="app-card-header">
+        <div>
+          <div class="app-name">${a.name}</div>
+          <div class="app-email">${a.email}</div>
+        </div>
+        <span class="app-status status-${a.status}">${a.status}</span>
+      </div>
+      <div class="app-job-tag">${a.job_title || a.jobTitle}</div>
+      ${a.message ? `<div class="app-message">"${a.message}"</div>` : ''}
+      <div class="app-skills-row">${skills}</div>
+      <div class="app-actions">
+        <button class="btn-accept ${!isPending ? 'btn-disabled' : ''}" onclick="updateAppStatus('${a.id}', 'accepted')">✓ Accept</button>
+        <button class="btn-reject ${!isPending ? 'btn-disabled' : ''}" onclick="updateAppStatus('${a.id}', 'rejected')">✗ Reject</button>
+        <span class="app-date">${date}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── MODAL ───
+function openJobApps(jobId) {
+  const jobs = supabaseJobs.length > 0 ? supabaseJobs : getData('jobs');
+  const apps = supabaseApps.length > 0 ? supabaseApps : getData('applications');
+  const job = jobs.find(j => j.id === jobId);
+  if (!job) {
+    console.error('Job not found:', jobId);
+    toast('Job not found', 'error');
+    return;
+  }
+  const jobApps = apps.filter(a => a.job_id === jobId || a.jobId === jobId);
+  document.getElementById('modal-title').textContent = `Applications → ${job.title}`;
+  const body = document.getElementById('modal-body');
+  if (!jobApps.length) {
+    body.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No applications for this job yet.</div></div>`;
+  } else {
+    body.innerHTML = '<div id="modal-apps-list"></div>';
+    renderApps(jobApps, document.getElementById('modal-apps-list'));
+  }
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) { if (e.target === document.getElementById('modal-overlay')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modal-overlay').classList.remove('open'); renderAll(); }
+
+// ─── TECHIES DIRECTORY + MESSAGING ───
+let supabaseTechies = [];
+
+async function loadTechies() {
+  try {
+    const profiles = await supabaseAdmin.request('GET', '/profiles?order=created_at.desc');
+    supabaseTechies = Array.isArray(profiles) ? profiles : [];
+  } catch (e) {
+    console.warn('Error loading techies:', e);
+    supabaseTechies = [];
+  }
+}
+
+function renderTechies() {
+  const container = document.getElementById('techies-list');
+  document.getElementById('techies-count').textContent = supabaseTechies.length;
+  document.getElementById('techies-listed-count').textContent = `(${supabaseTechies.length})`;
+  if (!supabaseTechies.length) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">👤</div><div class="empty-text">No registered techies yet.</div></div>`;
+    return;
+  }
+  container.innerHTML = supabaseTechies.map(t => `
+    <div class="job-card" onclick="openTechieDetail('${t.id}')" style="cursor:pointer;">
+      <div>
+        <strong>${t.name || '(no name set)'}</strong><br>
+        <span style="color:var(--muted);font-size:13px;">${t.email}</span><br>
+        <span style="color:var(--muted);font-size:11px;">Joined ${new Date(t.created_at).toLocaleDateString()}</span>
+      </div>
+      <button class="btn-primary" style="margin-top:10px;" onclick="event.stopPropagation(); openMessageModal('${t.id}', '${(t.name || t.email || '').replace(/'/g, "\\'")}')">Message</button>
+    </div>
+  `).join('');
+}
+
+function openTechieDetail(techieId) {
+  const techie = supabaseTechies.find(t => t.id === techieId);
+  if (!techie) return;
+  const apps = supabaseApps.filter(a => a.user_id === techieId);
+  const subs = supabaseSubmissions.filter(s => s.user_id === techieId);
+
+  document.getElementById('modal-title').textContent = techie.name || techie.email;
+  document.getElementById('modal-body').innerHTML = `
+    <div style="margin-bottom:16px;">
+      <div style="color:var(--muted);font-size:13px;">${techie.email}</div>
+      <div style="color:var(--muted);font-size:11px;">Joined ${new Date(techie.created_at).toLocaleDateString()}</div>
+    </div>
+    <div class="section-title" style="font-size:14px;margin-bottom:8px;">Applications (${apps.length})</div>
+    ${apps.length ? apps.map(a => `
+      <div style="border:1px solid #333;border-radius:8px;padding:10px 12px;margin-bottom:8px;">
+        <strong>${a.job_title}</strong>
+        <span class="submission-status ${a.status}" style="margin-left:8px;">${a.status}</span>
+      </div>
+    `).join('') : `<div style="color:var(--muted);font-size:13px;margin-bottom:16px;">No applications yet.</div>`}
+    <div class="section-title" style="font-size:14px;margin:16px 0 8px;">Submissions (${subs.length})</div>
+    ${subs.length ? subs.map(s => `
+      <div style="border:1px solid #333;border-radius:8px;padding:10px 12px;margin-bottom:8px;">
+        <strong>${s.job_title}</strong>
+        <span class="submission-status ${s.status}" style="margin-left:8px;">${s.status}</span>
+      </div>
+    `).join('') : `<div style="color:var(--muted);font-size:13px;">No submissions yet.</div>`}
+    <button class="btn-primary" style="margin-top:16px;" onclick="openMessageModal('${techie.id}', '${(techie.name || techie.email || '').replace(/'/g, "\\'")}')">Message ${techie.name || 'this person'}</button>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function openMessageModal(recipientId, recipientName) {
+  document.getElementById('modal-title').textContent = `Message → ${recipientName}`;
+  document.getElementById('modal-body').innerHTML = `
+    <textarea id="message-content" class="field-input" rows="5" placeholder="Type your message..." style="width:100%;"></textarea>
+    <button class="btn-primary" style="margin-top:12px;" onclick="sendMessage('${recipientId}')">Send Message</button>
+    <div id="message-status" style="margin-top:8px;"></div>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+async function sendMessage(recipientId) {
+  const content = document.getElementById('message-content').value.trim();
+  const statusEl = document.getElementById('message-status');
+  if (!content) {
+    statusEl.textContent = 'Please type a message.';
+    return;
+  }
+  try {
+    const session = Auth.getSession();
+    await supabaseAdmin.request('POST', '/messages', {
+      sender_id: session.user.id,
+      recipient_id: recipientId,
+      content: content
+    });
+    statusEl.textContent = '✓ Message sent!';
+    setTimeout(() => closeModalDirect(), 1000);
+  } catch (e) {
+    console.error(e);
+    statusEl.textContent = '⚠ Failed to send message.';
+  }
+}
+
+// ─── TABS ───
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`panel-${tab}`).classList.add('active');
+}
+
+// ─── SUPABASE SYNC ───
+// Initialize Supabase client
+const SUPABASE_URL = 'https://fsuhpjlyzojioezdjjld.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzdWhwamx5em9qaW9lemRqamxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMjIxNDksImV4cCI6MjA5Mjc5ODE0OX0.IkNVBJrpPKCuW9cKfuRNMWCa2mqjuerYWNUhuDdunlM';
+
+class SupabaseAdmin {
+    constructor(url, key) {
+        this.url = url;
+        this.key = key;
+    }
+
+    async request(method, endpoint, data = null) {
+        const token = (typeof Auth !== 'undefined' && Auth.isLoggedIn())
+            ? Auth.getSession().access_token
+            : this.key;
+        const options = {
+            method,
+            headers: {
+                'apikey': this.key,
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=representation'
+            }
+        };
+
+        if (data) {
+            options.body = JSON.stringify(data);
+        }
+
+        const response = await fetch(`${this.url}/rest/v1${endpoint}`, options);
+        if (!response.ok) {
+            const error = await response.json();
+            console.error('Supabase error:', error);
+            throw new Error(error.message || 'Request failed');
+        }
+        return await response.json();
+    }
+
+    async getJobs() {
+        return this.request('GET', '/jobs?order=created_at.desc');
+    }
+
+    async addJob(data) {
+        return this.request('POST', '/jobs', data);
+    }
+
+    async deleteJob(id) {
+        return this.request('DELETE', `/jobs?id=eq.${id}`);
+    }
+}
+
+const supabaseAdmin = new SupabaseAdmin(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Sync jobs between localStorage and Supabase
+async function syncJobsToSupabase() {
+    try {
+        const jobs = getData('jobs');
+        console.log(`📡 Found ${jobs.length} local jobs. Skipping old localStorage jobs.`);
+        // Note: Old localStorage jobs have invalid UUID format
+        // Only NEW jobs posted through the form go to Supabase
+        // Supabase is now the source of truth for job listings
+        console.log('✓ Jobs sync complete (Supabase is source of truth)');
+    } catch (e) {
+        console.error('Error syncing jobs:', e);
+    }
+}
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

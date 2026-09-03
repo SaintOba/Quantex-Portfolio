@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - DevBridge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">DevBridge</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="my-skills.html">My Skills</a></li>
+                <li><a href="opportunities.html">Opportunities</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section style="max-width: 420px; margin: 60px auto; padding: 0 20px;">
+        <h1 style="margin-bottom: 8px;">Log In</h1>
+        <p style="color: #666; margin-bottom: 24px;">Welcome back to DevBridge.</p>
+
+        <form id="login-form">
+            <div style="margin-bottom: 16px;">
+                <label for="login-email" style="display:block; margin-bottom:6px; font-weight:600;">Email</label>
+                <input type="email" id="login-email" required placeholder="you@email.com"
+                    style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px;">
+            </div>
+            <div style="margin-bottom: 16px;">
+                <label for="login-password" style="display:block; margin-bottom:6px; font-weight:600;">Password</label>
+                <input type="password" id="login-password" required placeholder="••••••••"
+                    style="width:100%; padding:10px; border:1px solid #ccc; border-radius:6px;">
+            </div>
+            <div id="login-error" style="color:#dc2626; margin-bottom:12px; display:none;"></div>
+            <button type="submit" class="cta-button primary" style="width:100%; padding:12px;">Log In</button>
+        </form>
+
+        <p style="margin-top: 20px; text-align:center;">
+            Don't have an account? <a href="signup.html">Sign up</a>
+        </p>
+    </section>
+
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorEl = document.getElementById('login-error');
+            errorEl.style.display = 'none';
+
+            try {
+                await Auth.signIn(email, password);
+                window.location.href = 'profile.html';
+            } catch (err) {
+                errorEl.textContent = err.message;
+                errorEl.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

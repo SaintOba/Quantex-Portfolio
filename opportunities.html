@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunities - DevBridge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">DevBridge</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="my-skills.html">My Skills</a></li>
+                <li><a href="opportunities.html" class="active">Opportunities</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="user-section">
+                <span id="user-name">Guest</span>
+                <a href="login.html" id="login-link" style="margin-right:10px;">Log In</a>
+                <a href="profile.html" class="profile-btn">Profile</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="opportunities-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Find Your Next Opportunity</h1>
+                <p>Discover projects, internships, and jobs tailored to your unique skill set</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-icon">💼</span>
+                        <span class="stat-text"><span id="hero-count">0</span> Opportunities</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-icon">🌍</span>
+                        <span class="stat-text">Worldwide</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="section opportunities-main">
+        <div class="container">
+            <!-- Filters Section -->
+            <div class="filters-panel">
+                <div class="filters-header">
+                    <h3>Filters</h3>
+                    <button id="clear-filters" class="filter-clear">Clear All</button>
+                </div>
+
+                <div class="filter-section">
+                    <label for="search-opportunities" class="filter-label">🔍 Search</label>
+                    <input type="text" id="search-opportunities" class="filter-input" placeholder="Search by title, company...">
+                </div>
+                
+                <div class="filter-section">
+                    <label for="filter-type" class="filter-label">💼 Type</label>
+                    <select id="filter-type" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Project">Project</option>
+                        <option value="Volunteer">Volunteer</option>
+                        <option value="Freelance">Freelance</option>
+                        <option value="Full-time">Full-time</option>
+                    </select>
+                </div>
+                
+                <div class="filter-section">
+                    <label for="filter-skill" class="filter-label">🎯 Skill</label>
+                    <select id="filter-skill" class="filter-select">
+                        <option value="">All Skills</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Design">Design</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Business">Business</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Writing">Writing</option>
+                    </select>
+                </div>
+                
+                <div class="filter-section">
+                    <label for="filter-location" class="filter-label">📍 Location</label>
+                    <select id="filter-location" class="filter-select">
+                        <option value="">All Locations</option>
+                        <option value="Remote">Remote</option>
+                        <option value="On-site">On-site</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+                </div>
+
+                <div class="filter-actions">
+                    <button id="show-matches" class="cta-button primary full-width">
+                        <span>✨</span> Show My Matches
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <div class="results-header">
+                    <div class="results-info">
+                        <h2>Available Opportunities</h2>
+                        <span class="results-count">(<span id="opportunities-count">0</span>)</span>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-view="all">All Opportunities</button>
+                        <button class="toggle-btn" data-view="matched">⭐ Matched to Me</button>
+                    </div>
+                </div>
+
+                <div id="opportunities-container" class="opportunities-grid">
+                    <div class="empty-state">
+                        <div class="empty-icon">🎯</div>
+                        <h3>No opportunities found</h3>
+                        <p>Try adjusting your filters or add more skills to get better matches</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section opportunities-cta">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Not sure which opportunities match?</h2>
+                <p>Complete your skill profile and let our AI find the perfect opportunities for you</p>
+                <a href="my-skills.html" class="cta-button primary large">Update Your Skills →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunity Detail Modal -->
+    <div id="opportunity-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body">
+                <!-- Opportunity details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Apply Modal -->
+    <div id="apply-modal" class="modal" style="z-index:1100;">
+        <div class="modal-content" style="max-width:520px;">
+            <span class="close-modal" onclick="closeApplyModal()">&times;</span>
+            <h2 style="margin-bottom:4px;">Apply for</h2>
+            <p id="apply-job-title" style="color:var(--primary-color);font-weight:600;font-size:1.1rem;margin-bottom:1.5rem;"></p>
+
+            <form id="apply-form" novalidate>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block;font-weight:600;margin-bottom:6px;">Full Name *</label>
+                    <input type="text" id="apply-name" placeholder="Your full name"
+                        style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:6px;font-size:14px;outline:none;font-family:inherit;">
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block;font-weight:600;margin-bottom:6px;">Email Address *</label>
+                    <input type="email" id="apply-email" placeholder="your@email.com"
+                        style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:6px;font-size:14px;outline:none;font-family:inherit;">
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block;font-weight:600;margin-bottom:6px;">Your Skills <span style="font-weight:400;color:#888;">(comma separated)</span></label>
+                    <input type="text" id="apply-skills" placeholder="HTML, CSS, JavaScript"
+                        style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:6px;font-size:14px;outline:none;font-family:inherit;">
+                </div>
+                <div style="margin-bottom:1.5rem;">
+                    <label style="display:block;font-weight:600;margin-bottom:6px;">Why do you want this? <span style="font-weight:400;color:#888;">(optional)</span></label>
+                    <textarea id="apply-message" placeholder="Tell us a bit about yourself and why you're applying..."
+                        style="width:100%;padding:10px 14px;border:1px solid #ddd;border-radius:6px;font-size:14px;outline:none;font-family:inherit;resize:vertical;min-height:90px;line-height:1.5;"></textarea>
+                </div>
+                <p id="apply-error" style="color:#ef4444;font-size:13px;margin-bottom:12px;display:none;"></p>
+                <button type="submit"
+                    style="width:100%;padding:13px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:6px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;transition:opacity 0.2s;"
+                    onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+                    Submit Application →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DevBridge</h3>
+                    <p>Turning skills into experience, one opportunity at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="my-skills.html">My Skills</a></li>
+                        <li><a href="opportunities.html">Opportunities</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@devbridge.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevBridge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+    <script src="opportunities.js"></script>
+</body>
+</html>

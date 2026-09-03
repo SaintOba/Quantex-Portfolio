@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Skills - DevBridge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">DevBridge</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="my-skills.html" class="active">My Skills</a></li>
+                <li><a href="opportunities.html">Opportunities</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="user-section">
+                <span id="user-name">Guest</span>
+                <a href="login.html" id="login-link" style="margin-right:10px;">Log In</a>
+                <a href="profile.html" class="profile-btn">Profile</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="skills-hero">
+        <div class="container">
+            <div class="skills-hero-content">
+                <h1>My Skills</h1>
+                <p>Build your skill profile and unlock opportunities tailored just for you</p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-value"><span id="skills-count">0</span></span>
+                        <span class="stat-label">Skills Added</span>
+                    </div>
+                </div>
+            </div>
+            <div class="skills-hero-accent"></div>
+        </div>
+    </section>
+
+    <!-- Add Skill Section -->
+    <section class="section add-skill-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Add a New Skill</h2>
+                <p class="section-subtitle">Build your profile by adding the skills you've learned and mastered</p>
+            </div>
+            
+            <div class="add-skill-container">
+                <form id="add-skill-form" class="skill-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="skill-name">Skill Name <span class="required">*</span></label>
+                            <input type="text" id="skill-name" required placeholder="e.g., JavaScript, Graphic Design, SEO">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="skill-category">Category <span class="required">*</span></label>
+                            <select id="skill-category" required>
+                                <option value="">Select a category</option>
+                                <option value="Programming">Programming</option>
+                                <option value="Design">Design</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Business">Business</option>
+                                <option value="Data Science">Data Science</option>
+                                <option value="Writing">Writing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="skill-level">Proficiency Level <span class="required">*</span></label>
+                            <select id="skill-level" required>
+                                <option value="">Select level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                                <option value="Expert">Expert</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="skill-source">Learning Source</label>
+                            <input type="text" id="skill-source" placeholder="e.g., Coursera, Self-taught, University">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="skill-description">Description <span class="optional">(Optional)</span></label>
+                        <textarea id="skill-description" rows="3" placeholder="Share details about your experience, projects, or achievements with this skill..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="cta-button primary large">
+                            <span class="btn-icon">+</span> Add Skill
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills List Section -->
+    <section class="section skills-list-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Your Skills Portfolio</h2>
+                <p class="section-subtitle">Manage and organize your skills to match with the best opportunities</p>
+            </div>
+
+            <div class="skills-controls">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-skills" placeholder="Search your skills...">
+                </div>
+                <select id="filter-category" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="Programming">Programming</option>
+                    <option value="Design">Design</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Business">Business</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Writing">Writing</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div id="skills-container" class="skills-grid">
+                <div class="empty-state">
+                    <div class="empty-icon">🎯</div>
+                    <h3>No skills yet</h3>
+                    <p>Add your first skill above to build your profile and start getting matched with opportunities!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DevBridge</h3>
+                    <p>Turning skills into experience, one opportunity at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="my-skills.html">My Skills</a></li>
+                        <li><a href="opportunities.html">Opportunities</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@devbridge.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 DevBridge. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+    <script src="skills.js"></script>
+</body>
+</html>
